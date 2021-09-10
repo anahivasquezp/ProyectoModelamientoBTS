@@ -14,54 +14,54 @@ public class Usuario {
 
     public Usuario() {
         nivelesAprobados = new ArrayList<>();
-
     }
 
     public void guardarNivel(int nivel, String usuario, String password) {
         String cadena = "";
-        File archivo;// Manipular archivo
-        FileWriter fw;//Para escribir en el txt
-        PrintWriter pw;
+        File archivo = null;// Manipular archivo
+        FileWriter fw = null;//Para escribir en el txt
+        PrintWriter pw = null;
+        BufferedReader br = null;// lectura 
         archivo = new File("usuarios.txt");
-        if (!archivo.exists()) {
-            try {
+        try {
+            if (!archivo.exists()) {
                 archivo.createNewFile();
-                usuario = "USERTEST";// usuario = user;
-                cadena += usuario + ", ";
-                password = "123"; // password = contrasena;
-                cadena += password + ", ";
-                nivelesAprobados.add(nivel);
                 fw = new FileWriter(archivo, true);
                 pw = new PrintWriter(fw);
+                nivelesAprobados.add(nivel);
+                cadena = usuario + ",";
+                cadena += password + ",";
                 Iterator<Integer> nivelesIterator = nivelesAprobados.iterator();
                 while (nivelesIterator.hasNext()) {
-                    cadena += String.valueOf(nivelesIterator.next()) + ", ";
+                    cadena += String.valueOf(nivelesIterator.next()) + ",";
                 }
-                pw.println(cadena + "\n");
-                pw.close();
-                fw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                //cadena += "\n";
+                String cadena2 = cadena;
+                pw.println(cadena2);
+            } else {
+                fw = new FileWriter(archivo, true);
+                pw = new PrintWriter(fw);
+                nivelesAprobados.add(nivel);
+                cadena = usuario + ", ";
+                cadena += password + ", ";
+                Iterator<Integer> nivelesIterator = nivelesAprobados.iterator();
+                while (nivelesIterator.hasNext()) {
+                    cadena += String.valueOf(nivelesIterator.next()) + ",";
+                }
+                //cadena += "\n";
+                pw.println(cadena);
             }
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             try {
-                usuario = "USERTEST";// usuario = user;
-                cadena += usuario + ", ";
-                password = "123"; // password = contrasena;
-                cadena += password + ", ";
-                nivelesAprobados.add(nivel);
-                fw = new FileWriter(archivo, true);
-                pw = new PrintWriter(fw);
-                Iterator<Integer> nivelesIterator = nivelesAprobados.iterator();
-                while (nivelesIterator.hasNext()) {
-                    cadena += String.valueOf(nivelesIterator.next()) + ", ";
+                if (fw != null) {
+                    fw.close();
                 }
-                pw.println(cadena + "\n");
-                pw.close();
-                fw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+
     }
 }
