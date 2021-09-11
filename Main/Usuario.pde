@@ -33,7 +33,7 @@ public class Usuario {
         this.user = user;
     }
 
-    public String getContrasena() {
+    String getContrasena() {
         return contrasena;
     }
 
