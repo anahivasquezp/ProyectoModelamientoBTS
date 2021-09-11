@@ -50,6 +50,9 @@ public class Mapa {
         }
       }
     }
+    obtenerElementos();
+    for(Elemento s: elementos) //recorro el array de tipo elemento
+    s.dibujar();
   }
 
  public ArrayList<Elemento> obtenerElementos(){
