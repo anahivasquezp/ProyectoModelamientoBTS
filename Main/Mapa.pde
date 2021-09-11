@@ -3,9 +3,7 @@ public class Mapa {
   private int alt;
   private int ancho;
   ArrayList<Elemento> elementos;
-  PImage red_brick, big, tall, small;
-
-  Nivel nivel;
+  PImage red_brick, small;
   //-------------------------------
 
   final static float MOVE_SPEED = 5;
@@ -14,34 +12,23 @@ public class Mapa {
 
   //---------------------------------
 
+
+
+
   public Mapa() {
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
-    nivel = new Nivel();
+
     //solo carga las imágenes de todos los elemntos
-    red_brick = loadImage("red_brick.png");
-    big = loadImage("big.png");
-    tall = loadImage("tall.png");
-    small = loadImage("small.png");
+      red_brick = loadImage("red_brick.png");
+      small = loadImage("small.png");
+
   }
 
 
   // dibuja
 
   public void dibujarMapa() {
-    String Filename="";
-
-    switch(nivel.getNivelActual()) {
-    case 1:
-      Filename = "NivelUno.csv";
-      break;
-    case 2:
-      Filename = "NivelDos.csv";
-      break;
-    case 3:
-      Filename = "NivelTres.csv";
-      break;
-    }
-
+    String Filename = "NivelUno.csv";
 
     String[] lines = loadStrings(Filename);
 
@@ -58,33 +45,39 @@ public class Mapa {
           Elemento s = new Elemento(small, 1.0); //aqui deberiamos crear objetos de tipo de cada elemento
           s.center_x = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           s.center_y = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          elementos.add(s); //anado en la lista de elmentos del mapa
-        } else if (values[col].equals("3")) {
-          Elemento s = new Elemento(tall, 1.0); //aqui deberiamos crear objetos de tipo de cada elemento
-          s.center_x = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          s.center_y = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          elementos.add(s); //anado en la lista de elmentos del mapa
-        } else if (values[col].equals("4")) {
-          Elemento s = new Elemento(big, 1.0); //aqui deberiamos crear objetos de tipo de cada elemento
-          s.center_x = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          s.center_y = SPRITE_SIZE/2 + row * SPRITE_SIZE;
+          //s.mover();
           elementos.add(s); //anado en la lista de elmentos del mapa
         }
       }
     }
+    obtenerElementos();
+    for(Elemento s: elementos) //recorro el array de tipo elemento
+    s.dibujar();
   }
 
-  //posicion mapa
+ public ArrayList<Elemento> obtenerElementos(){
+        return this.elementos;
+    }
+  
+    
+
+
+
+
   public void obtenerPosicion() {
   }
 
-  /*public notificadorPersonajes() {
-  }*/
 
 
 
-  //get Array
-  public ArrayList<Elemento> obtenerElementos() {
-    return this.elementos;
+
+
+
+  public void mostrarSize() {
+    size(800, 600);
+  }
+
+  public void mostrarBackground() {
+    background(255);
   }
 }
