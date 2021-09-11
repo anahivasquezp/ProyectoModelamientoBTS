@@ -25,6 +25,22 @@ public class Usuario {
      }
     }
     
+   String getUser() {
+        return user;
+    }
+
+    void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    
     //Crea una lista de los archivos existentes en el directorio actual
     String[] listFileNames(String dir) {  //recibe como parametro la ruta actual
     File file = new File(dir);  //Crea un objeto de la clase File
