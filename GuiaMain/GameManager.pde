@@ -1,18 +1,19 @@
 public class GameManager {
 
-  ArrayList<Nivel> niveles;
+  Nivel nivel;
   Usuario usuario;
 
   public GameManager() {
-    niveles = new ArrayList<Nivel>();
+    nivel = new Nivel();
     usuario=new Usuario();
   }
 
   //public void verificarFinJuego(){} 
 
   public void dibujarGameManager(){ //click en botones
-  
-  
+  //nivel que el usuario elija en el menú
+    nivel.setNivelActual(2);
+    nivel.iniciarNivel();
   } 
 
   //carga los niveles dependiendo el usuario

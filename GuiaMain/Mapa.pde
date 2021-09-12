@@ -5,7 +5,7 @@ public class Mapa {
   ArrayList<Elemento> elementos;
   PImage red_brick, big, tall, small;
 
-  Nivel nivel;
+ // Nivel nivel;
   //-------------------------------
 
   final static float MOVE_SPEED = 5;
@@ -16,7 +16,7 @@ public class Mapa {
 
   public Mapa() {
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
-    nivel = new Nivel();
+    //nivel = new Nivel();
     //solo carga las imágenes de todos los elemntos
     red_brick = loadImage("red_brick.png");
     big = loadImage("big.png");
@@ -27,10 +27,10 @@ public class Mapa {
 
   // dibuja
 
-  public void dibujarMapa() {
+  public void dibujarMapa(int nivel) {
     String Filename="";
 
-    switch(nivel.getNivelActual()) {
+    switch(nivel) {
     case 1:
       Filename = "NivelUno.csv";
       break;
@@ -72,6 +72,12 @@ public class Mapa {
         }
       }
     }
+    
+    //llama a los elementos del mapa
+    for(Elemento s: elementos) //recorro el array de tipo elemento
+    s.dibujar();
+    
+    
   }
 
   //posicion mapa

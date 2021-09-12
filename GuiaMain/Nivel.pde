@@ -3,20 +3,26 @@ int nivelActual;
 int contadorPersonajes;
 
 Mapa mapa;
-GameManager gameManager;
 
 
   public  Nivel (){
-   //this.nivelActual= gameManager.cargarProgreso();
-    this.nivelActual=1;
-    contadorPersonajes=0;
+    mapa = new Mapa();
+   this.nivelActual= 1;
+   contadorPersonajes=0;
   }
+  
+  //iniciar Nivel
+  public void iniciarNivel(){
+    this.contadorPersonajes=0;
+    mapa.dibujarMapa(nivelActual);
+  }
+  
   
   
   public void reiniciarNivel(){
     //this.nivelActual=nivelActual;
     this.contadorPersonajes=0;
-    mapa.dibujarMapa();
+    mapa.dibujarMapa(nivelActual);
   }
   
   
@@ -29,8 +35,6 @@ GameManager gameManager;
     }
   }
   
-  
-  
   //HACEN LO MISMO
   public int notificarProgreso(){
     return nivelActual;
@@ -41,18 +45,15 @@ GameManager gameManager;
     return nivelActual;
   }
   
-  //agregar Set nivel Actual
-  /*
-  public void setNivelActual(){
-    this.nivelActual = nivelActual;
-  }
-  */
-  
   public int getContadorPersonajes(){
     return contadorPersonajes;
   }
   
+  //set nivel actual
   
+  public void setNivelActual(int nivel){
+    this.nivelActual = nivel;
+  }
   
   
   
