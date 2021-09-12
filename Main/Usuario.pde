@@ -13,6 +13,7 @@ public class Usuario {
     String path= sketchPath;  //Variable para guardar ruta de archivo 
     String fileName  = "";  //Variable para el nombre del archivo
     int id=1;  //id del archivo, se usa para renombrar
+    int ultimoNivel;
 
     public Usuario(String usuario) {
         nivelesAprobados = new ArrayList<>();//Guardar los niveles aprob
@@ -93,6 +94,14 @@ public class Usuario {
         }
         archivo.println(cadena);
         close();
+    }
+    //Entrega el ultimo nivel
+    public int getUltimoNivel(){
+      Iterator<Integer> nivelesIterator = nivelesAprobados.iterator();
+      while (nivelesIterator.hasNext()) {
+        ultimoNivel = nivelesIterator.next();
+      }
+      return ultimoNivel;
     }
     
     //Cierra el archivo, para que sea utilizable
