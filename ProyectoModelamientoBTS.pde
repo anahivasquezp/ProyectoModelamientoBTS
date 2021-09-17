@@ -26,8 +26,8 @@ public void setup() {
   customGUI();
   
   img = loadImage("Big.png");
-  x=200;
-  y=400;
+  x=570;
+  y=725;
   
 }
 
@@ -39,10 +39,10 @@ public void draw() {
   switch (state){
   case stateLogin:
     //imagen que salte
-    image(img, 580, y);
+    image(img, 570, y);
     y-=0.5;
-    if (y==350) {
-      image(img, 580, y);
+    if (y==685) {
+      image(img, 570, y);
       y+=20;
     }
     break;

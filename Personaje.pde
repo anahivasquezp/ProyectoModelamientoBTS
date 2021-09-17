@@ -66,22 +66,31 @@ public abstract class Personaje implements Elemento{
       if(colisiones.size()>0){
         
         for(Elemento s: colisiones){
-          if (s instanceof Pared){
-          if(cambioY>0 && posY<((Pared)s).posY){
-            this.cambioY=0;
-            this.posY=((Pared)s).posY-50;
-            
-          }
-          else if(cambioY<0&& posY>((Pared)s).posY){
-            this.cambioY=0;
-            this.posY=((Pared)s).posY+50;
-            
-          }
-          
-          }
-          
-          } 
-          
+           if (s instanceof Pared){
+              if(cambioY>0 && posY < ((Pared)s).posY){
+                this.cambioY = 0;
+                this.posY=((Pared)s).posY - 50;
+                
+              }
+              else if(cambioY<0&& posY>((Pared)s).posY){
+                this.cambioY = 0;
+                this.posY=((Pared)s).posY + 50;
+                
+              }            
+            }else if (s instanceof Caja){
+              if(cambioY > 0 && posY < ((Caja)s).posY){
+                this.cambioY = 0;
+                ((Caja)s).vY = 0;
+                this.posY = ((Caja)s).posY - 50;
+              }
+              else if(cambioY < 0 && posY > ((Caja)s).posY){
+                this.cambioY = 0;
+                ((Caja)s).vY = 0;
+                this.posY = ((Caja)s).posY +50;
+                
+              }            
+            }          
+          }           
       }
       this.posY+=cambioY;
       
@@ -89,20 +98,34 @@ public abstract class Personaje implements Elemento{
       
       if(colisiones.size()>0){
         for(Elemento s: colisiones){
-          if (s instanceof Pared && ((Pared)s).posY==this.posY){
-          if(cambioX>0){
-            this.posX=((Pared)s).posX-52;
-            this.cambioX=0;
-          }
-          else if(cambioX<0){
-            this.posX=((Pared)s).posX+52;
-            this.cambioX=0;
-         
-          }
-          }
-          
-          } 
-          
+           if (s instanceof Pared && ((Pared)s).posY == this.posY){
+              if(cambioX>0){
+                this.posX = ((Pared)s).posX-50;
+                this.cambioX = 0;
+              }
+              else if(cambioX<0){
+                this.posX = ((Pared)s).posX+50;
+                this.cambioX=0;
+             
+              }
+            }else if (s instanceof Caja && ((Caja)s).posY == this.posY){
+              if(cambioX>0){
+                this.posX = ((Caja)s).posX-52;
+                this.cambioX = 0;
+              }
+              else if(cambioX<0){
+                this.posX = ((Caja)s).posX+52;
+                this.cambioX=0;
+             
+              }else{
+                if(this.posX < ((Caja)s).posX){
+                this.posX = ((Caja)s).posX - 52;
+                }else if (this.posX > ((Caja)s).posX){
+                this.posX = ((Caja)s).posX + 52;
+              }
+              }
+            }             
+          }          
       }
            
       this.posX+=cambioX;

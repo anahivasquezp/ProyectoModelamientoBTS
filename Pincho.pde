@@ -1,16 +1,17 @@
 
-public class Portal implements Elemento{  
+public class Pincho implements Elemento{  
 
   PImage img;
   float posX, posY;
-  float alto=100;
-  float ancho=100;
+  float alto=15;
+  float ancho=50;
   Colision colision;
+  boolean eliminado = false; // sirve para habilitar o deshabilitar el método interactuar y dibujar
 
  
-public Portal(float posX, float posY, Colision colision){
+public Pincho(float posX, float posY, Colision colision){
     //Imagen de clase (pueden ser png, jpg, tga)
-    img = loadImage("portal.png");    
+    img = loadImage("pincho.png");    
 
     //Posiciones y colision
     this.posX = posX;
@@ -22,7 +23,7 @@ public Portal(float posX, float posY, Colision colision){
   
      @Override
      boolean esMortal(){
-        return false;
+        return true;
      };
 
     //dibuja la imagen

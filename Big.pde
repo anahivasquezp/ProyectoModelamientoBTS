@@ -12,10 +12,10 @@ public class Big extends Personaje{
    public void mover(){
      if (this.estado){
        if (keyCode==RIGHT){
-         cambioX=15;
+         cambioX=7.5;
        }
        if(keyCode==LEFT){
-         cambioX=-15;
+         cambioX=-7.5;
        }
      }
    }

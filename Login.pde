@@ -36,7 +36,7 @@ import java.io.*;
     String cadena;
     boolean valor = false;
     try {
-      FileReader f = new FileReader("C:/Usuarios.txt");
+       FileReader f = new FileReader(dataPath("Usuarios.txt"));
       BufferedReader b = new BufferedReader(f);
 
       while ((cadena = b.readLine())!=null) {

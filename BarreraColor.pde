@@ -1,7 +1,8 @@
-public class PuertaColor implements Elemento{
+public class BarreraColor implements Elemento{
   PImage img;
   float posX, posY;
   float alto=100;
+
   float ancho=50;
   Colision colision;
   boolean abierto = false;
@@ -10,18 +11,18 @@ public class PuertaColor implements Elemento{
   //1=Rojo
   //2=Azul
   //3=Amarillo
-  int colorPuerta;
+  Color colorPuerta;
 
-  public PuertaColor(float posX, float posY, Colision colision, int colorPuerta){
+  public BarreraColor(float posX, float posY, Colision colision, Color colorPuerta){
     //Imagen de la clase
     switch(colorPuerta){
-      case 1: 
+      case ROJO: 
         img = loadImage("data/PuertaColorRojo.png");
         break;
-      case 2: 
+      case AZUL: 
         img = loadImage("data/PuertaColorAzul.png");
         break;
-      case 3:
+      case AMARILLO:
         img = loadImage("data/PuertaColorAmarillo.png");
         break;
     }
@@ -43,25 +44,28 @@ public class PuertaColor implements Elemento{
     public void mover() {}
     
    public void interactuar(){
-    /*
      if(!abierto){
         //Verifica si el personaje Que entra a la puerta es del mismo color que la puerta
         ArrayList<Elemento> colisionados = colision.colisionar(this);
         for(Elemento colisionado : colisionados){
+          Color colorPersonaje;
+          if(colisionado instanceof Tall) colorPersonaje = Color.AZUL;
+          if(colisionado instanceof Big) colorPersonaje = Color.ROJO;
+          else colorPersonaje = Color.AMARILLO;
           if(colisionado instanceof Personaje){
-             if( ((Personaje)colisionado).getColor = this.colorPuerta){               
+             if( colorPersonaje == this.colorPuerta){               
+               // elimina la puerta (la manda a una esquinna)
                this.posX = -1;
                this.posY = -1;
                this.ancho = 0;
                this.alto = 0;
-               this.eliminado = true;
+               // desactiva el método interactuar y dibujar
                this.abierto=true;
              }
           }
         }
-        */
-        
-   };
+     }
+   }
    
    
    @Override
@@ -78,4 +82,5 @@ public class PuertaColor implements Elemento{
       float[] margenes = {margenIzquierdo,margenDerecho, margenSuperior, margenInferior};
       return margenes;
     }
+    
 }

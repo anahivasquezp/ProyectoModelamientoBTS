@@ -1,15 +1,17 @@
+
 public class Pared implements Elemento{  
+
   PImage img;
   float posX, posY;
   float alto=50;
   float ancho=50;
   Colision colision;
-  boolean eliminado = false; // sirve para habilitar o deshabilitar el método interactuar y dibujar
 
  
-  public Pared(float posX, float posY, Colision colision){
+public Pared(float posX, float posY, Colision colision){
     //Imagen de clase (pueden ser png, jpg, tga)
     img = loadImage("data/pared.png");    
+
     //Posiciones y colision
     this.posX = posX;
     this.posY = posY;
@@ -26,9 +28,7 @@ public class Pared implements Elemento{
     //dibuja la imagen
     @Override
     public void dibujar() {
-      if(!eliminado){
-        image(img, posX, posY, ancho, alto);
-      }
+       image(img, posX, posY, ancho, alto);
     }
     
     //LLave no se mueve

@@ -2,7 +2,9 @@ public class Puerta implements Elemento{
 
   PImage img;
   float posX, posY;
+
   float alto=100;
+
   float ancho=50;
   Colision colision;
   boolean eliminado = false;
@@ -32,25 +34,23 @@ public class Puerta implements Elemento{
     public void mover() {}
     
    public void interactuar(){
-    /*
-     if(!eliminado){
-        //Verifica si el personaje Que entra a la puerta es del mismo color que la puerta
-        ArrayList<Elemento> colisionados = colision.colisionar(this);
-        for(Elemento colisionado : colisionados){
-          if(colisionado instanceof Personaje){
-             if( ((Personaje)colisionado).tieneLlave()){
-                ((Personaje)colisionado).quitarLlave();
-                this.posX = -1;
-                this.posY = -1;
-                this.ancho = 0;
-                this.alto = 0;
-                this.eliminado = true;
-             }
+       if(!eliminado){
+          //Verifica si el personaje Que entra a la puerta tiene llaves y si tiene las elimina
+          ArrayList<Elemento> colisionados = colision.colisionar(this);
+          for(Elemento colisionado : colisionados){
+            if(colisionado instanceof Personaje){
+               if( ((Personaje)colisionado).contadorLlaves > 0){
+                  ((Personaje)colisionado).contadorLlaves--;
+                  this.posX = -1;
+                  this.posY = -1;
+                  this.ancho = 0;
+                  this.alto = 0;
+                  this.eliminado = true;
+               }
+            }
           }
-        }
-        */
-        
-   };
+       }  
+     }
    
    
    

@@ -2,8 +2,8 @@ public class Llave implements Elemento{
   
   PImage img;
   float posX, posY; // posiciones del centro del Elemento
-  float alto = 50;
-  float ancho = 50;
+  float alto = 37;
+  float ancho = 100;
   Colision colision;
   boolean eliminado = false; // sirve para habilitar o deshabilitar el método interactuar y dibujar
   
@@ -50,6 +50,7 @@ public class Llave implements Elemento{
               this.eliminado = true;
               System.out.println(((Personaje)colisionado).contadorLlaves);
           }
+
         }
       }
     }

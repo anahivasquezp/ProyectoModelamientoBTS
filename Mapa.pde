@@ -1,6 +1,7 @@
 public class Mapa implements Elemento {
   private float posX, posY;
   private int alt;
+
   private int ancho;
   ArrayList<Elemento> elementos;
   ArrayList<Elemento> personajes;
@@ -106,12 +107,12 @@ public class Mapa implements Elemento {
           Elemento s = new Puerta(posX, posY, colision);
           elementos.add(s);
         }
-        /*else if (values[col].equals("9")) {
+        else if (values[col].equals("9")) {
          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
          Elemento s = new Caja(posX, posY, colision);
          elementos.add(s);
-         }else if (values[col].equals("10")) {
+         }/*else if (values[col].equals("10")) {
          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
          Elemento s = new Boton(posX, posY, colision);
@@ -171,4 +172,5 @@ public void dibujarMapa(){
 public ArrayList<Elemento> obtenerElementos() {
   return this.elementos;
 }
+
 }
