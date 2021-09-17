@@ -3,18 +3,8 @@
 1) Se puede ingresar con las siguientes credenciales
 	Usuario: abc
 	Contraseña abc
- 
-2) La implementación se encuentra únicamente hasta el Tercer nivel
 
-3) Los elementos: personajes (big, tall, small) y caja no aparecerán en el mapa puesto que
-aún no se enceuntran agregadas dichas clases. Al momento de agregarlas, por favor descomentar
-el código que se encuentra en la clase MAPA.
-
-4) Para el funcionamiento, el archivo (Usuarios.txt) que se encuentra adjuntado se debe 
-guardar en el disco local C 
-por motivos de la configuración del path dentro de la clase LOGIN
-
-5) La clasificación de los elementos se encuentra de la siguiente forma
+2) La clasificación de los elementos se encuentra de la siguiente forma
 
 	1 == Big
 	2 == Tall
@@ -29,19 +19,9 @@ por motivos de la configuración del path dentro de la clase LOGIN
 	11 == Laser 
 	12 == Canon
 	13 == Tp
-
------------------------------------EXTRAS---------------------------------
-
-- Se cambiaron los nombres de las siguientes clases:
-
-Pared por Bloque (por motivos de concordancia)
-Teletransporatador por Portal (no son lo mismo)
-
-- Llave y Puerta se encuentran desproporcionadas, es solo para una aproximación al mapa
-Más adelante se puede cambiar para que queden perfectamente adaptadas a las dimensiones del mapa.
-
-- Se omitió el audio del juego porque era demasiado pesado
-(se comentó en el Main la llamada al audio)
+	14 == Puerta Roja
+	15 == Puerta Azul
+	16 == Puerta Amarilla
 
 
 

@@ -1,10 +1,10 @@
 public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTADOR
   PImage img;
   float posX, posY;
-  float alto=75;
-  float ancho=75;
+  float alto=50;
+  float ancho=50;
   Colision colision;
-  Teletransportador otroTeletransportador;
+  Teletransportador otroTeletransportador = this;
   
  
   public Teletransportador(float posX, float posY, Colision colision){
@@ -16,7 +16,7 @@ public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTAD
     this.colision = colision;
   }
   
-  public void setOtroPortal(Teletransportador teletransportador){
+  public void setOtroTeletransportador(Teletransportador teletransportador){
     this.otroTeletransportador = teletransportador;
   }
 
@@ -44,12 +44,12 @@ public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTAD
       for(Elemento colisionado : colisionados){
         if(colisionado instanceof Personaje){
             float[] pos = otroTeletransportador.obtenerPosicion();
-            if(((Personaje)colisionado).cambioX > 0){
-               ((Personaje)colisionado).posX = pos[0]+25;
+            if(((Personaje)colisionado).cambioX < 0){
+               ((Personaje)colisionado).posX = pos[0]+50;
                ((Personaje)colisionado).posY = pos[1];
             }
             else{
-               ((Personaje)colisionado).posX = pos[0]+25;
+               ((Personaje)colisionado).posX = pos[0]-50;
                ((Personaje)colisionado).posY = pos[1];
             }
 

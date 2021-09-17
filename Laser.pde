@@ -2,7 +2,7 @@ public class Laser implements Elemento{
   PImage imagenEncendido;
   PImage imagenApagado;
   float posX, posY;
-  float alto=50;
+  float alto=100;
   float ancho=50;
   Colision colision;
   boolean encendido = true; // sirve para habilitar o deshabilitar el método interactuar y dibujar
