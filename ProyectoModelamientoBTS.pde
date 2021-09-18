@@ -1,8 +1,5 @@
 import g4p_controls.*;
 
-// You can remove the PeasyCam import if you are not using
-// the GViewPeasyCam control or the PeasyCam library.
-
 PImage img;
 float x, y;
 GameManager gm;
@@ -13,8 +10,6 @@ final int stateLogin = 0;  // consts
 final int stateGameManager = 1;
 //
 int state = stateLogin ;   // current
-
-
 
 
 public void setup() {
@@ -47,12 +42,12 @@ public void draw() {
     }
     break;
 
-  case stateGameManager:
-  
+  case stateGameManager:  
     gm.dibujarGameManager();
     for(Elemento s: gm.nivel.mapa.elementos){
       s.interactuar();
     }
+    gm.nivel.mapa.interactuar();
     
     break;
 
@@ -73,25 +68,13 @@ void keyPressed(){
       }
     }
     if(keyCode==32){
-      String tipo="";
       for(Elemento s: gm.nivel.mapa.personajes){
-        //(Personaje) s).cambiarEstado();
-        if(((Personaje) s).estado==true && s instanceof Big){
-          tipo="Big";
-          break;
+        ((Personaje) s).cambiarEstado();
         }
-        if(((Personaje) s).estado==true && s instanceof Tall){
-          tipo="Tall";
-          break;
-        }
-        if(((Personaje) s).estado==true && s instanceof Small){
-          tipo="Small";
-          break;
-        }
-        }
-        for(Elemento s: gm.nivel.mapa.personajes){
-        ((Personaje) s).cambiarEstado(tipo);
-      }
+    }
+    if(keyCode==ENTER){
+      user.verificar();
+      gm = new GameManager(user);      
     }
   }catch(Exception e){
     //System.out.println("Error 1!!!");

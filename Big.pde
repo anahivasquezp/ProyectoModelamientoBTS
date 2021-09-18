@@ -5,36 +5,29 @@ public class Big extends Personaje{
       this.posX = posX;
       this.posY = posY;
       this.colision = colision;
-      this.estado=true;
+      this.estado=0;
     }
   
   @Override
    public void mover(){
-     if (this.estado){
+     if (this.estado==0){
        if (keyCode==RIGHT){
-         cambioX=7.5;
+         cambioX=3;
        }
        if(keyCode==LEFT){
-         cambioX=-7.5;
+         cambioX=-3;
        }
      }
    }
    
-   @Override
-   public void cambiarEstado(String tipo){
-     if (tipo=="Big"){
-       this.estado=false;
-    }
-    if (tipo=="Small"){
-      this.estado=true;
-    }
-  }
+  
   
   @Override
    public void saltar(){
-     if (this.estado){
+     if (this.estado==0&&saltable==true){
        if (keyCode==UP){
          cambioY=-15;
+         this.saltable=false;
        }
        }
      }

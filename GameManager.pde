@@ -8,13 +8,9 @@ public class GameManager {
   PImage candado;
 
   public GameManager(Usuario user) {
-    nivel = new Nivel();
+    nivel = new Nivel(this);
     usuario = user;
     candado = loadImage("Candado.png");
-  }
-
-  //funcionalidad ?
-  public void verificarFinJuego() {
   }
 
   public void dibujarGameManager() { //click en botones
@@ -22,7 +18,7 @@ public class GameManager {
     //Variables para el botón
     int x= 20; //ejex
     int w= 200;  //ancho cuadrado
-    int y= 120; //eje y
+    int y= 280; //eje y
     int h= 200;   //altura cuadrado
     PFont font1;
 
@@ -30,7 +26,6 @@ public class GameManager {
 
     //si se encuentra en la pantalla de niveles    
     int ultimoNivel=usuario.getUltimoNivelAprobado();
-    //int ultimoNivel=2;
 
     if (pantallaNivel==true) {
       //Si esta dentro y presiona el botón
@@ -50,7 +45,7 @@ public class GameManager {
         x=x+240;
       }
 
-      x=20;
+      x=45;
 
       //Botón Presionado
 
@@ -88,20 +83,11 @@ public class GameManager {
   }
 
 
-
-  //carga los niveles dependiendo el usuario
-  /*public int cargarProgreso() {
-   return usuario.getUltimoNivelAprobado();
-   }*/
-
   //guarda el nivel en el usuario
   public void guardarProgreso() {
-    if (nivel.pasarNivel()) {
-      usuario.guardarNivel(nivel.getNivelActual());  //pilas que se hace
+    if(nivelElegido > usuario.getUltimoNivelAprobado()){
+      usuario.setUltimoNivelAprobado(nivelElegido);
     }
   }
 
-  //verifica si el usuario ya se encuentra registrado ?
-  public void verificarUsuario() {
-  }
 }

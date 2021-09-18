@@ -15,9 +15,10 @@
 	7 == Llave
 	8 == Puerta
 	9 == Caja
-	10 == Boton
+	10 == Boton1
+	100 == Boton 2
 	11 == Laser 
-	12 == Canon
+	111 == Laser 2
 	13 == Tp
 	14 == Puerta Roja
 	15 == Puerta Azul

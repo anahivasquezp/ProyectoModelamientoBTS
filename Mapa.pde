@@ -1,10 +1,12 @@
 public class Mapa implements Elemento {
   private float posX, posY;
   private int alt;
-
   private int ancho;
   ArrayList<Elemento> elementos;
-  ArrayList<Elemento> personajes;
+  Elemento[] personajes;
+  Elemento[] lasers;
+  int i=0;
+  Nivel nivel;
 
 
   // especificaciones del mapa
@@ -12,15 +14,16 @@ public class Mapa implements Elemento {
   final static float MOVE_SPEED = 5;
   final static float SPRITE_SCALE = 50.0/128;
   final static float SPRITE_SIZE = 50;
-  
+
   //Color
   Color ROJO, AMARILLO, AZUL;
-  
 
-  public Mapa() {
+
+  public Mapa(Nivel nivel) {
+    this.nivel = nivel;
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
-    personajes = new ArrayList<Elemento>(); //array para guardar los personajes creados en el mapa
-    //inicializarMapa(3);
+    personajes = new Elemento[3]; //array para guardar los personajes creados en el mapa
+    lasers = new Elemento[1];//array para guardar los lasers creados en el mapa
   }
 
   @Override
@@ -48,8 +51,11 @@ public class Mapa implements Elemento {
     case 4:
       Filename = "NivelCuatro.csv";
       break;
-     case 5:
+    case 5:
       Filename = "NivelCinco.csv";
+      break;
+    case 6:
+      Filename = "EndGame.csv";
       break;
     }
 
@@ -58,26 +64,24 @@ public class Mapa implements Elemento {
     for (int row = 0; row < lines.length; row++) {
       String[] values = split(lines[row], ",");
       for (int col = 0; col < values.length; col++) {
-
-
         if (values[col].equals("1")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Big(posX, posY, colision);
           elementos.add(s);
-          personajes.add(s);
+          personajes[0]=s;
         } else if (values[col].equals("2")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Tall(posX, posY, colision);
           elementos.add(s);
-          personajes.add(s);
+          personajes[1]=s;
         } else if (values[col].equals("3")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Small(posX, posY, colision);
           elementos.add(s);
-          personajes.add(s);
+          personajes[2]=s;
         } else if (values[col].equals("4")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
@@ -88,14 +92,12 @@ public class Mapa implements Elemento {
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Portal(posX, posY, colision);
           elementos.add(s);
-        }
-        else if (values[col].equals("6")) {
-         posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-         posY = SPRITE_SIZE/2 + row * SPRITE_SIZE+35;
-         Elemento s = new Pincho(posX, posY, colision);
-         elementos.add(s);
-         }
-        else if (values[col].equals("7")) {
+        } else if (values[col].equals("6")) {
+          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
+          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE+35;
+          Elemento s = new Pincho(posX, posY, colision);
+          elementos.add(s);
+        } else if (values[col].equals("7")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Llave(posX, posY, colision);
@@ -110,36 +112,36 @@ public class Mapa implements Elemento {
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Caja(posX, posY, colision);
           elementos.add(s);
-        }
-        /*else if (values[col].equals("10")) {
-         posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-         posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-         Elemento s = new Boton(posX, posY, colision);
-         elementos.add(s);*/
-        else if (values[col].equals("11")) {
+        } else if (values[col].equals("10")) {
+          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
+          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
+          Elemento s = new Boton(posX, posY, colision);
+          elementos.add(s);
+          elementos.indexOf(s);
+          elementos.get(1);
+          ((Boton)s).setLaser((Laser)lasers[i]);
+        }else if (values[col].equals("11")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Laser(posX, posY, colision);
           elementos.add(s);
-        } else if (values[col].equals("13")) {
+          lasers[i] = s;
+        }else if (values[col].equals("13")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new Teletransportador(posX, posY, colision);
           elementos.add(s);
-        }
-        else if (values[col].equals("14")) {
+        } else if (values[col].equals("14")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new BarreraColor(posX, posY, colision, Color.ROJO);
           elementos.add(s);
-        }
-        else if (values[col].equals("15")) {
+        } else if (values[col].equals("15")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new BarreraColor(posX, posY, colision, Color.AZUL);
           elementos.add(s);
-        }
-        else if (values[col].equals("16")) {
+        } else if (values[col].equals("16")) {
           posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
           posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
           Elemento s = new BarreraColor(posX, posY, colision, Color.AMARILLO);
@@ -168,7 +170,19 @@ public class Mapa implements Elemento {
 
   @Override
     public void interactuar() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      int contador=0;
+    if (personajes[0] != null) {       
+      for (Elemento p : personajes) {
+        if (((Personaje) p).getVida() == 2) {
+          this.nivel.reiniciarNivel();
+        } else if (((Personaje) p).getVida() == 1){
+          contador++;
+        }
+      }
+      if(contador ==3){
+        this.nivel.pasarNivel();
+      }
+    }
   }
 
   @Override

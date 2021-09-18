@@ -3,10 +3,12 @@ public class Nivel {
   int contadorPersonajes;
   Mapa mapa;
   boolean nivelCargado;
+  GameManager gm;
 
 
-  public  Nivel () {
-    mapa = new Mapa();
+  public  Nivel (GameManager gm) {
+    mapa = new Mapa(this);
+    this.gm = gm;
     this.nivelActual= 1;
     contadorPersonajes=0;
     nivelCargado = false;
@@ -25,28 +27,16 @@ public class Nivel {
 
 
   public void reiniciarNivel() {
-    //this.nivelActual=nivelActual;
-    this.contadorPersonajes=0;
+    mapa = new Mapa(this);
     mapa.inicializarMapa(nivelActual);
   }
 
-
-
-  //HACEN LO MISMO
-  /*public void pasarNivel(){
-   if(contadorPersonajes==3){
-   this.nivelActual++;
-   this.contadorPersonajes=0;
-   }
-   }*/
-
-  public boolean pasarNivel() {
-    if (contadorPersonajes==3) {
+  public void pasarNivel() {
       this.nivelActual++;
-      this.contadorPersonajes=0;
-      return true;
-    }
-    return true;
+      mapa = new Mapa(this);      
+      mapa.inicializarMapa(nivelActual);
+      gm.nivelElegido = nivelActual;
+      gm.guardarProgreso();
   }
 
   //es igual al get del nivelActual

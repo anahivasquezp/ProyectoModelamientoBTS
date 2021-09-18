@@ -16,6 +16,7 @@
 
  
  import java.awt.Font;
+ Usuario user;
  
 public void limpiarDatos() {
   txtName.setText("");
@@ -38,10 +39,9 @@ public void button2_click1(GButton source, GEvent event) { //_CODE_:button2:3322
   println("button2 - GButton >> GEvent." + event + " @ " + millis());
   boolean vacio = txtName.getText().equals("") || txtPass.getPassword().equals("");
   if(!vacio){
-  Usuario user = new Usuario(txtName.getText(), txtPass.getPassword());  
+  user = new Usuario(txtName.getText(), txtPass.getPassword());  
   user.verificar();
   gm = new GameManager(user);
-  println(user.getUltimoNivelAprobado());
   this.limpiarDatos();
 }else{
 label1.setText("Campos vacíos");

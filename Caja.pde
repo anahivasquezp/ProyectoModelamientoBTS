@@ -59,10 +59,10 @@ public Caja(float posX, float posY, Colision colision){
               }
               
             }
-            if(vX < 0){
+            if(vX < 0  && this.posY <= ((Big)colisionado).posY){
               this.posX = ((Big)colisionado).posX - 51;
               this.posX += vX;
-            }else if (vX > 0){
+            }else if (vX > 0 && this.posY <= ((Big)colisionado).posY){
               this.posX = ((Big)colisionado).posX + 51;
               this.posX += vX;
             }
@@ -94,11 +94,11 @@ public Caja(float posX, float posY, Colision colision){
               }
               
             }else if(vX > 0){
-              System.out.println(vX);
+              //System.out.println(vX);
               this.vX = 0;
               this.posX =((Pared)colisionado).posX - 50;
             }else if(vX < 0){
-              System.out.println(vX);
+              //System.out.println(vX);
               this.vX = 0;
               this.posX =((Pared)colisionado).posX + 50;
             }
