@@ -1,17 +1,14 @@
+import java.util.regex.Pattern;
+
 public class Mapa implements Elemento {
   private float posX, posY;
-  private int alt;
-  private int ancho;
   ArrayList<Elemento> elementos;
   Elemento[] personajes;
-  Elemento[] lasers;
-  int i=0;
   Nivel nivel;
 
 
   // especificaciones del mapa
   PImage big, tall, small, caja;
-  final static float MOVE_SPEED = 5;
   final static float SPRITE_SCALE = 50.0/128;
   final static float SPRITE_SIZE = 50;
 
@@ -23,7 +20,6 @@ public class Mapa implements Elemento {
     this.nivel = nivel;
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
     personajes = new Elemento[3]; //array para guardar los personajes creados en el mapa
-    lasers = new Elemento[1];//array para guardar los lasers creados en el mapa
   }
 
   @Override
@@ -55,98 +51,125 @@ public class Mapa implements Elemento {
       Filename = "NivelCinco.csv";
       break;
     case 6:
-      Filename = "EndGame.csv";
+      Filename = "GameOver.csv";
       break;
     }
 
     String[] lines = loadStrings(Filename);
 
+
+    HashMap<String, Elemento[]> conexionLaserBoton = new HashMap<String, Elemento[]>();
+    HashMap<String, ArrayList<Elemento>> conexionTeletransportador = new HashMap<String, ArrayList<Elemento>>();
+
+
+    //Separa el csv en columnas y filas
     for (int row = 0; row < lines.length; row++) {
       String[] values = split(lines[row], ",");
       for (int col = 0; col < values.length; col++) {
+
+        // calculo de la posición de un elemento en base al csv
+        posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
+        posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
+
+        // Elemento temporal
+        Elemento s = null;
+
+        // los valores 1,2 y 3 son para personajes
         if (values[col].equals("1")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Big(posX, posY, colision);
-          elementos.add(s);
+          s = new Big(posX, posY, colision);
           personajes[0]=s;
         } else if (values[col].equals("2")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Tall(posX, posY, colision);
-          elementos.add(s);
+          s = new Tall(posX, posY, colision);
           personajes[1]=s;
         } else if (values[col].equals("3")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Small(posX, posY, colision);
-          elementos.add(s);
+          s = new Small(posX, posY, colision);
           personajes[2]=s;
-        } else if (values[col].equals("4")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Pared(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("5")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Portal(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("6")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE+35;
-          Elemento s = new Pincho(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("7")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Llave(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("8")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Puerta(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("9")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Caja(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("10")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Boton(posX, posY, colision);
-          elementos.add(s);
-          elementos.indexOf(s);
-          elementos.get(1);
-          ((Boton)s).setLaser((Laser)lasers[i]);
-        }else if (values[col].equals("11")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Laser(posX, posY, colision);
-          elementos.add(s);
-          lasers[i] = s;
-        }else if (values[col].equals("13")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new Teletransportador(posX, posY, colision);
-          elementos.add(s);
-        } else if (values[col].equals("14")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new BarreraColor(posX, posY, colision, Color.ROJO);
-          elementos.add(s);
-        } else if (values[col].equals("15")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new BarreraColor(posX, posY, colision, Color.AZUL);
-          elementos.add(s);
-        } else if (values[col].equals("16")) {
-          posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
-          posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
-          Elemento s = new BarreraColor(posX, posY, colision, Color.AMARILLO);
-          elementos.add(s);
+        } else if (values[col].equals("4")) s = new Pared(posX, posY, colision);
+        else if (values[col].equals("5")) s = new Portal(posX, posY, colision);
+        else if (values[col].equals("6")) s = new Pincho(posX, posY, colision);
+        else if (values[col].equals("7")) s = new Llave(posX, posY, colision);
+        else if (values[col].equals("8")) s = new Puerta(posX, posY, colision);
+        else if (values[col].equals("9")) s = new Caja(posX, posY, colision);
+        else if (values[col].equals("14")) s = new BarreraColor(posX, posY, colision, Color.ROJO);
+        else if (values[col].equals("15")) s = new BarreraColor(posX, posY, colision, Color.AZUL);
+        else if (values[col].equals("16")) s = new BarreraColor(posX, posY, colision, Color.AMARILLO);
+
+        if (s != null) elementos.add(s);
+
+        //Se lee el valor 10 para Boton y su identificador
+        else if (Pattern.compile("10-\\d+").matcher(values[col]).matches()) {
+
+          //Tomo el indice
+          String key = values[col].substring(3);
+
+          //verifico si en el hashmap existe el índice y si no lo creo
+          if (conexionLaserBoton.get(key) == null) {
+            conexionLaserBoton.put(key, new Elemento[2]);
+          }
+
+          //Agrego un botón al hashmap temporal conexionLaser
+          conexionLaserBoton.get(key)[1] = new Boton(posX, posY, colision);
         }
+
+        //Se lee el valor 11 para Laser y su identificador
+        else if (Pattern.compile("11-\\d+").matcher(values[col]).matches()) {
+
+          //Tomo el indice
+          String key = values[col].substring(3);
+
+          //verifico si en el hashmap existe el índice y si no lo creo
+          if (conexionLaserBoton.get(key) == null) {
+            conexionLaserBoton.put(key, new Elemento[2]);
+          }
+
+          //Agrego un Laser al hashmap temporal conexionLaser
+          conexionLaserBoton.get(key)[0] = new Laser(posX, posY, colision);
+        }
+
+        //Se lee el valor 13 para Teletransportador y su identificador
+        else if (Pattern.compile("13-\\d+").matcher(values[col]).matches()) {
+
+          //Tomo el indice
+          String key = values[col].substring(3);
+
+          //verifico si en el hashmap existe el índice y si no lo creo
+          if (conexionTeletransportador.get(key) == null) {
+            conexionTeletransportador.put(key, new ArrayList<Elemento>());
+          }
+
+          //Agrego un Teletransportador al hashmap temporal conexionTeletransportador
+          conexionTeletransportador.get(key).add(new Teletransportador(posX, posY, colision));
+        }
+      }
+    }
+
+
+    //Se procesan las listas de teletransportadores para verificar su completitud y tipo
+    for (ArrayList<Elemento> trasnportadores : conexionTeletransportador.values()) {
+
+      //Se verifica que se hayan asignado valores para ambos teletransportadores 
+      if (trasnportadores.get(0) != null && trasnportadores.get(1) != null) {
+
+        //Se conectan los teletransportadores
+        ((Teletransportador)trasnportadores.get(0)).setOtroTeletransportador((Teletransportador)trasnportadores.get(1));
+
+        //Se agregan a la lista de elementos
+        elementos.add(trasnportadores.get(0));
+        elementos.add(trasnportadores.get(1));
+      }
+    }
+
+    for (Elemento[] laserYBoton : conexionLaserBoton.values()) {
+
+      //Se verifica que se hayan asignado valores para boton y laser 
+      if (laserYBoton[0] != null && laserYBoton[1] != null) {
+
+        //Conecto boton y laser
+        ((Boton)laserYBoton[1]).setLaser((Laser)laserYBoton[0]);
+
+        //Se agregan a la lista de elementos
+        elementos.add(laserYBoton[0]);
+        elementos.add(laserYBoton[1]);
       }
     }
   }
@@ -170,16 +193,16 @@ public class Mapa implements Elemento {
 
   @Override
     public void interactuar() {
-      int contador=0;
+    int contador=0;
     if (personajes[0] != null) {       
       for (Elemento p : personajes) {
         if (((Personaje) p).getVida() == 2) {
           this.nivel.reiniciarNivel();
-        } else if (((Personaje) p).getVida() == 1){
+        } else if (((Personaje) p).getVida() == 1) {
           contador++;
         }
       }
-      if(contador ==3){
+      if (contador ==3) {
         this.nivel.pasarNivel();
       }
     }

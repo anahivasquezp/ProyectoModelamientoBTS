@@ -15,7 +15,7 @@ public Pincho(float posX, float posY, Colision colision){
 
     //Posiciones y colision
     this.posX = posX;
-    this.posY = posY;
+    this.posY = posY+35;
     this.colision = colision;
     
     

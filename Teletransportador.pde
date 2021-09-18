@@ -5,7 +5,7 @@ public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTAD
   float ancho=50;
   Colision colision;
   Teletransportador otroTeletransportador = this;
-  
+  boolean activado;
  
   public Teletransportador(float posX, float posY, Colision colision){
     //Imagen de clase (pueden ser png, jpg, tga)
@@ -16,8 +16,15 @@ public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTAD
     this.colision = colision;
   }
   
+  public void desactivar(){
+    this.activado = false;
+  }
+  
   public void setOtroTeletransportador(Teletransportador teletransportador){
-    this.otroTeletransportador = teletransportador;
+    if(this.otroTeletransportador == this){
+      this.otroTeletransportador = teletransportador;
+      teletransportador.setOtroTeletransportador(this);
+    }
   }
 
   public float[] obtenerPosicion(){
@@ -41,20 +48,36 @@ public class Teletransportador implements Elemento{  //CAMBIAR A TELETRANSPORTAD
     public void interactuar() {
       //Detecta la colisión con cada personaje y elimina a cada personaje del mapa
       ArrayList<Elemento> colisionados = colision.colisionar(this);
-      for(Elemento colisionado : colisionados){
-        if(colisionado instanceof Personaje){
-            float[] pos = otroTeletransportador.obtenerPosicion();
-            if(((Personaje)colisionado).cambioX < 0){
-               ((Personaje)colisionado).posX = pos[0]+50;
-               ((Personaje)colisionado).posY = pos[1];
+      
+      //Si el portal está activado, el personaje puede teletransportarse al otro portal
+      if(activado){
+          for(Elemento colisionado : colisionados){
+            if(colisionado instanceof Personaje){
+                float[] pos = otroTeletransportador.obtenerPosicion();
+                if(((Personaje)colisionado).cambioX < 0){
+                   ((Personaje)colisionado).posX = pos[0];
+                   ((Personaje)colisionado).posY = pos[1];
+                }
+                else{
+                   ((Personaje)colisionado).posX = pos[0];
+                   ((Personaje)colisionado).posY = pos[1];
+                }
+                otroTeletransportador.desactivar();
             }
-            else{
-               ((Personaje)colisionado).posX = pos[0]-50;
-               ((Personaje)colisionado).posY = pos[1];
-            }
-
-        }
+          }
       }
+      //Si el portal esta desactivado, el personaje no puede teletransportarse al otro portal
+      //El portal se activa de nuevo cuando el personaje salga del portal
+      else{
+         boolean sigueColisionandoConPersonaje = false;
+         for(Elemento colisionado : colisionados){
+            if(colisionado instanceof Personaje){
+              sigueColisionandoConPersonaje = true;
+            }
+          }
+          if(!sigueColisionandoConPersonaje) this.activado = true;
+      }
+
     }
     
     
