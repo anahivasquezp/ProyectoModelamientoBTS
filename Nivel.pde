@@ -37,11 +37,8 @@ public class Nivel {
     gm.guardarProgreso();
   }
 
-  public int getNivelActual() {
-    return nivelActual;
-  }
-
   public void setNivelActual(int nivel) {
     this.nivelActual = nivel;
   }
+
 }

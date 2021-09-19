@@ -6,11 +6,6 @@ public class BarreraColor implements Elemento {
   float ancho=50;
   Colision colision;
   boolean abierto = false;
-  //Para verificar el color
-  //Suponiendo 
-  //1=Rojo
-  //2=Azul
-  //3=Amarillo
   Color colorPuerta;
 
   public BarreraColor(float posX, float posY, Colision colision, Color colorPuerta) {
@@ -51,7 +46,7 @@ public class BarreraColor implements Elemento {
       for (Elemento colisionado : colisionados) {
         Color colorPersonaje;
         if (colisionado instanceof Tall) colorPersonaje = Color.AZUL;
-        if (colisionado instanceof Big) colorPersonaje = Color.ROJO;
+        else if (colisionado instanceof Big) colorPersonaje = Color.ROJO;
         else colorPersonaje = Color.AMARILLO;
         if (colisionado instanceof Personaje) {
           if ( colorPersonaje == this.colorPuerta) {               
