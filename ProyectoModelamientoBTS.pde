@@ -5,10 +5,9 @@ float x, y;
 GameManager gm;
 
 // variables de estado
-
 final int stateLogin = 0;  // consts
 final int stateGameManager = 1;
-//
+
 int state = stateLogin ;   // current
 
 
@@ -42,12 +41,12 @@ public void draw() {
     }
     break;
 
-  case stateGameManager:  
+  case stateGameManager:  //el estado se cambia en 
     gm.dibujarGameManager();
     for(Elemento s: gm.nivel.mapa.elementos){
       s.interactuar();
     }
-    gm.nivel.mapa.interactuar();
+    gm.nivel.mapa.interactuar(); //verifica a los personajes 
     
     break;
 
@@ -72,9 +71,9 @@ void keyPressed(){
         ((Personaje) s).cambiarEstado();
         }
     }
-    if(keyCode==ENTER){
-      user.verificar();
-      gm = new GameManager(user);      
+    if(keyCode==ENTER){ 
+      user.verificar();//verifica denuevo el usuario por el último nivel aprobado
+      gm = new GameManager(user); //vuelve a crear un gm      
     }
   }catch(Exception e){
     //System.out.println("Error 1!!!");

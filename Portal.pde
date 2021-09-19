@@ -10,7 +10,7 @@ public class Portal implements Elemento{
  
 public Portal(float posX, float posY, Colision colision){
     //Imagen de clase (pueden ser png, jpg, tga)
-    img = loadImage("portal.png");    
+    img = loadImage("data/portal.png");    
 
     //Posiciones y colision
     this.posX = posX;

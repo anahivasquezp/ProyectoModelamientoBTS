@@ -21,7 +21,7 @@
 public void limpiarDatos() {
   txtName.setText("");
   }
-
+//boton registrarse
 public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:874263://REGISTRAR
   println("button1 - GButton >> GEvent." + event + " @ " + millis());
   boolean vacio = txtName.getText().equals("") || txtPass.getPassword().equals("");
@@ -33,8 +33,8 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:8742
 label1.setText("Campos vacíos");
 this.limpiarDatos();
 }
-} //_CODE_:button1:874263:
-
+} 
+//boton ingresar
 public void button2_click1(GButton source, GEvent event) { //_CODE_:button2:332251: //INGRESAR
   println("button2 - GButton >> GEvent." + event + " @ " + millis());
   boolean vacio = txtName.getText().equals("") || txtPass.getPassword().equals("");
@@ -112,7 +112,7 @@ public void createGUI() {
   txtPass.setOpaque(true);
   txtPass.setFont(new Font("Dialog", Font.PLAIN, 30));
   txtPass.addEventHandler(this, "pass");
-  label1 = new GLabel(this, 516, 341, 197, 22);
+  label1 = new GLabel(this, 485, 341, 250, 22);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label1.setLocalColorScheme(GCScheme.RED_SCHEME);
   label1.setOpaque(false);

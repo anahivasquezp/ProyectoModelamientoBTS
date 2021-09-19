@@ -2,38 +2,30 @@ import java.util.regex.Pattern;
 
 public class Mapa implements Elemento {
   private float posX, posY;
-  ArrayList<Elemento> elementos;
-  Elemento[] personajes;
-  Nivel nivel;
+  ArrayList<Elemento> elementos; // contiene todos los elementos
+  Elemento[] personajes; //array únicamente para acceder a los personajes
+  Nivel nivel; //bidireccionalidad con nivel
 
-
-  // especificaciones del mapa
-  PImage big, tall, small, caja;
+  // especificaciones de escala del mapa  
   final static float SPRITE_SCALE = 50.0/128;
   final static float SPRITE_SIZE = 50;
 
-  //Color
-  Color ROJO, AMARILLO, AZUL;
-
-
-  public Mapa(Nivel nivel) {
-    this.nivel = nivel;
+  
+  public Mapa(Nivel nivel) { //requiere de parámetro un nivel para crearse un mapa
+    this.nivel = nivel; //se necesita para el método interactuar
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
     personajes = new Elemento[3]; //array para guardar los personajes creados en el mapa
   }
 
-  @Override
-    public void dibujar() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
 
-  // dibuja el nivel que el usuario escoje
+  //inicializa el nivel que el usuario escoje en el Game Manager
   public void inicializarMapa(int nivel) {
 
-    Colision colision = new Colision (this);
+    Colision colision = new Colision (this); //se crea un objeto colisión que irá como parámetro para cada uno de los elementos que se creen y agreguen al arraylist
 
     String Filename="";
-
+    
+    //carga el csv del mapa que solicita
     switch(nivel) {
     case 1:
       Filename = "NivelUno.csv";
@@ -57,9 +49,9 @@ public class Mapa implements Elemento {
 
     String[] lines = loadStrings(Filename);
 
-
-    HashMap<String, Elemento[]> conexionLaserBoton = new HashMap<String, Elemento[]>();
-    HashMap<String, ArrayList<Elemento>> conexionTeletransportador = new HashMap<String, ArrayList<Elemento>>();
+    //hashMaps otorga un identificador a dos elementos que necesitan uno de otro (boton, láser, teletransportador)
+    HashMap<String, Elemento[]> conexionLaserBoton = new HashMap<String, Elemento[]>(); //array normal porque se necesitan posiciones específicas
+    HashMap<String, ArrayList<Elemento>> conexionTeletransportador = new HashMap<String, ArrayList<Elemento>>(); //arraylist porque los TPs se asocian todos entre sí
 
 
     //Separa el csv en columnas y filas
@@ -67,7 +59,7 @@ public class Mapa implements Elemento {
       String[] values = split(lines[row], ",");
       for (int col = 0; col < values.length; col++) {
 
-        // calculo de la posición de un elemento en base al csv
+        // calculo de la posición de un elemento en base al csv y las escalas
         posX = SPRITE_SIZE/2 + col * SPRITE_SIZE;
         posY = SPRITE_SIZE/2 + row * SPRITE_SIZE;
 
@@ -84,7 +76,8 @@ public class Mapa implements Elemento {
         } else if (values[col].equals("3")) {
           s = new Small(posX, posY, colision);
           personajes[2]=s;
-        } else if (values[col].equals("4")) s = new Pared(posX, posY, colision);
+        }//elementos generales que no requieren de verificación
+        else if (values[col].equals("4")) s = new Pared(posX, posY, colision);
         else if (values[col].equals("5")) s = new Portal(posX, posY, colision);
         else if (values[col].equals("6")) s = new Pincho(posX, posY, colision);
         else if (values[col].equals("7")) s = new Llave(posX, posY, colision);
@@ -173,22 +166,11 @@ public class Mapa implements Elemento {
       }
     }
   }
-
-
-
-  public void dibujarMapa() {
+ 
+    @Override
+    public void dibujar() {
     for (Elemento s : elementos) 
       s.dibujar();
-  }
-
-  @Override
-    public void mover() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-    public boolean esMortal() {
-    return false;
   }
 
   @Override
@@ -196,9 +178,9 @@ public class Mapa implements Elemento {
     int contador=0;
     if (personajes[0] != null) {       
       for (Elemento p : personajes) {
-        if (((Personaje) p).getVida() == 2) {
+        if (((Personaje) p).getVida() == 2) { //verifica si algun personaje murió
           this.nivel.reiniciarNivel();
-        } else if (((Personaje) p).getVida() == 1) {
+        } else if (((Personaje) p).getVida() == 1) { //verifica si algun personaje pasó el portal
           contador++;
         }
       }
@@ -208,14 +190,27 @@ public class Mapa implements Elemento {
     }
   }
 
+  //get Array de Elementos del mapa (colisión hace uso de este método)
+  public ArrayList<Elemento> obtenerElementos() {
+    return this.elementos;
+  }
+  
+    //no hay implementación de este método
   @Override
     public float[] obtenerMargen() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
-
-
-  //get Array de Elementos del mapa
-  public ArrayList<Elemento> obtenerElementos() {
-    return this.elementos;
+  
+    //no hay implementación de este método
+  @Override
+    public void mover() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
+
+  //no hay implementación de este método
+  @Override
+    public boolean esMortal() {
+    return false;
+  }
+  
 }

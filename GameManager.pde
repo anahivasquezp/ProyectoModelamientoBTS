@@ -1,11 +1,9 @@
 public class GameManager {
-  Nivel nivel;
-  Usuario usuario;
-  boolean pantallaNivel=true;
-  int nivelElegido = 0;
-
-  //imagen cargada para la interfaz principal
-  PImage candado;
+  Nivel nivel; //bidireccionalidad con nivel
+  Usuario usuario; //necesita de un usuario verificado para funcionar
+  boolean pantallaNivel=true; //conocer si está dentro del frame
+  int nivelElegido = 0;  
+  PImage candado;//imagen cargada para el fram GM de niveles no aprobados
 
   public GameManager(Usuario user) {
     nivel = new Nivel(this);
@@ -13,6 +11,7 @@ public class GameManager {
     candado = loadImage("Candado.png");
   }
 
+  //game manager es un Frame que se ejecuta 60 veces
   public void dibujarGameManager() { //click en botones
     boolean button = false;
     //Variables para el botón
@@ -23,13 +22,13 @@ public class GameManager {
     PFont font1;
 
     background(255);
-
-    //si se encuentra en la pantalla de niveles    
+    
+    //obtiene el último nivel aprobado dependiendo del usuario
     int ultimoNivel=usuario.getUltimoNivelAprobado();
-
+    
+    //si se encuentra en la pantalla de niveles   
     if (pantallaNivel==true) {
       //Si esta dentro y presiona el botón
-
       for (int cn = 0; cn < 5; cn++) {
         if ((mouseX > x) && (mouseX <x+w)&&(mouseY >y)&&(mouseY<y+h) && (mousePressed)) {
           if (ultimoNivel<cn) {
@@ -44,16 +43,12 @@ public class GameManager {
         }
         x=x+240;
       }
-
       x=45;
 
       //Botón Presionado
-
       if (button) {
-
         pantallaNivel=false; //No está en la pantalla de Niveles
       } else {
-
         background(255);
         for (int cx = 0; cx < 5; cx++) {
           if (ultimoNivel < cx) {
@@ -61,7 +56,7 @@ public class GameManager {
             fill(164, 54, 42);
             rect(x, y, w, h);
             candado.loadPixels();
-            image(candado, x+40, y+40);
+            image(candado, x+20, y+20);
           } else {
             stroke(255);
             fill(205, 67, 52);
@@ -76,18 +71,17 @@ public class GameManager {
         }
       }
     } else { //Si no se encuentra en la pantalla de niveles
-      //nivel que el usuario elija en el menú
-      nivel.setNivelActual(nivelElegido);
-      nivel.iniciarNivel();
+      nivel.setNivelActual(nivelElegido); //nivel que el usuario elija en el menú
+      nivel.iniciarNivel(); //es el que llama para inicializar o dibujar el mapa
     }
   }
 
 
   //guarda el nivel en el usuario
   public void guardarProgreso() {
-    if(nivelElegido > usuario.getUltimoNivelAprobado()){
-      usuario.setUltimoNivelAprobado(nivelElegido);
+    if (nivelElegido > usuario.getUltimoNivelAprobado()) { //verifica que haya aprobado un nuevo nivel
+      usuario.setUltimoNivelAprobado(nivelElegido); //se necesita para actualizar el gm
+      usuario.guardarNivel(); //guarda el último nivel del usuario 
     }
   }
-
 }

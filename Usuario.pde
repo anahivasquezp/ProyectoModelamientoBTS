@@ -61,10 +61,10 @@ public class Usuario {
     }
   }
 
-  public void guardarNivel(int nivelUsuario) {
-    this.ultimoNivelAprobado = nivelUsuario;
-    // guardartxt
-      }
-    
+public void guardarNivel(){
+    registro = new Registro(this.nombre, this.password);
+    registro.registrarNivel(this.ultimoNivelAprobado);
+  }
+
  
 }

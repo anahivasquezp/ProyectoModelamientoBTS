@@ -65,10 +65,12 @@ public abstract class Personaje implements Elemento {
             this.cambioY = 0;
             this.posY=((Pared)s).posY - 50;
             this.saltable=true;
+            
           } else if (cambioY<0&& posY>((Pared)s).posY) {
             this.cambioY = 0;
             this.posY=((Pared)s).posY + 50;
           }
+          
         } else if (s instanceof Caja) {
           if (cambioY > 0 && posY < ((Caja)s).posY) {
             this.cambioY = 0;
@@ -114,6 +116,7 @@ public abstract class Personaje implements Elemento {
             }
           }
         }
+        
         if (s instanceof Puerta) {
           if (cambioX>0) {
             this.posX = ((Puerta)s).posX-52;
@@ -160,4 +163,5 @@ public abstract class Personaje implements Elemento {
   public int getVida() {
     return this.vida;
   }
+  
 }
