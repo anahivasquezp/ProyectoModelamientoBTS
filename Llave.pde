@@ -41,7 +41,7 @@ public class Llave implements Elemento{
         //Agrega la llave al personaje y elimina la llave del mapa, mandandola a una esquina, también deshabilita el método interactuar;
         ArrayList<Elemento> colisionados = colision.colisionar(this);
         for(Elemento colisionado : colisionados){
-          if(colisionado instanceof Personaje){
+          if(colisionado instanceof Personaje && !(colisionado instanceof Malo)){ // El personaje malo no puede recoger la llave
               ((Personaje)colisionado).contadorLlaves++;
               this.posX = -1;
               this.posY = -1;

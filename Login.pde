@@ -32,7 +32,7 @@ import java.io.*;
     return ultimoNivelAprobadoLogin;
   }
 
-  public boolean verificarUsuario() {
+  public boolean verificar() {
     String cadena;
     boolean valor = false;
     try {

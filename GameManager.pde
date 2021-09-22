@@ -1,5 +1,4 @@
 public class GameManager {
-
   Nivel nivel; //bidireccionalidad con nivel
   Usuario usuario; //necesita de un usuario verificado para funcionar
   boolean pantallaNivel=true; //conocer si está dentro del frame
@@ -76,6 +75,7 @@ public class GameManager {
       nivel.iniciarNivel(); //es el que llama para inicializar o dibujar el mapa
     }
   }
+
 
   //guarda el nivel en el usuario
   public void guardarProgreso() {

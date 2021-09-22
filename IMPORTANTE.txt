@@ -21,6 +21,7 @@
 	14 == Puerta Roja
 	15 == Puerta Azul
 	16 == Puerta Amarilla
+	17 == Malo
 
 
 

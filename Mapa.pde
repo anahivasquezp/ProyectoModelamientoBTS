@@ -9,18 +9,20 @@ public class Mapa implements Elemento {
   // especificaciones de escala del mapa  
   final static float SPRITE_SCALE = 50.0/128;
   final static float SPRITE_SIZE = 50;
+    
+  //temporizador para actualizar posición del malo
+  
 
   
   public Mapa(Nivel nivel) { //requiere de parámetro un nivel para crearse un mapa
     this.nivel = nivel; //se necesita para el método interactuar
     elementos = new ArrayList<Elemento>(); //array para guardar los elementos creados en el mapa
-    personajes = new Elemento[3]; //array para guardar los personajes creados en el mapa
+    personajes = new Elemento[4]; //array para guardar los personajes creados en el mapa
   }
 
 
   //inicializa el nivel que el usuario escoje en el Game Manager
   public void inicializarMapa(int nivel) {
-
     Colision colision = new Colision (this); //se crea un objeto colisión que irá como parámetro para cada uno de los elementos que se creen y agreguen al arraylist
 
     String Filename="";
@@ -86,6 +88,10 @@ public class Mapa implements Elemento {
         else if (values[col].equals("14")) s = new BarreraColor(posX, posY, colision, Color.ROJO);
         else if (values[col].equals("15")) s = new BarreraColor(posX, posY, colision, Color.AZUL);
         else if (values[col].equals("16")) s = new BarreraColor(posX, posY, colision, Color.AMARILLO);
+        else if (values[col].equals("17")){
+          s = new Malo(posX, posY, colision);
+          personajes[3]=s;
+        }
 
         if (s != null) elementos.add(s);
 

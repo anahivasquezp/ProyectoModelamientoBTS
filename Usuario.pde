@@ -51,7 +51,7 @@ public class Usuario {
   }
   public void verificar(){
     login = new Login(this.nombre, this.password);
-    if (login.verificarUsuario()) {
+    if (login.verificar()) {
       this.ultimoNivelAprobado = login.getUltimoNivelAprobadoLogin();
       label1.setText("Ingresando");
       state = stateGameManager;

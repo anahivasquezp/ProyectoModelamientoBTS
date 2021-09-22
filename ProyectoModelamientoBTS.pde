@@ -1,4 +1,5 @@
 import g4p_controls.*;
+import lord_of_galaxy.timing_utils.*;
 
 PImage img;
 float x, y;
@@ -7,8 +8,10 @@ GameManager gm;
 // variables de estado
 final int stateLogin = 0;  // consts
 final int stateGameManager = 1;
+Stopwatch temporizador = new Stopwatch(this);
 
 int state = stateLogin ;   // current
+
 
 
 public void setup() {
@@ -22,11 +25,9 @@ public void setup() {
   img = loadImage("Big.png");
   x=570;
   y=725;
-  
 }
 
 public void draw() {
-
   background(255);
 
   // this calls functions for each state
@@ -47,7 +48,6 @@ public void draw() {
       s.interactuar();
     }
     gm.nivel.mapa.interactuar(); //verifica a los personajes 
-    
     break;
 
   default:
@@ -60,7 +60,8 @@ public void draw() {
 
 void keyPressed(){
   try{
-    if(keyCode==RIGHT || keyCode==LEFT ||keyCode==UP ){
+    boolean teclaPresionada = keyCode==RIGHT || keyCode==LEFT ||keyCode==UP || (key == 'd' || key == 'D') || (key == 'a' || key == 'A') || (key == 'w' || key == 'W');
+    if(teclaPresionada){
       for(Elemento s: gm.nivel.mapa.personajes){
         ((Personaje) s).mover();
         ((Personaje) s).saltar();
@@ -82,7 +83,8 @@ void keyPressed(){
 }
 void keyReleased(){
   try{
-    if(keyCode==RIGHT || keyCode==LEFT ){
+    boolean teclaPresionada = keyCode==RIGHT || keyCode==LEFT || (key == 'd' || key == 'D') || (key == 'a' || key == 'A');
+    if(teclaPresionada){
       for(Elemento s: gm.nivel.mapa.personajes){
         ((Personaje) s).detener();
       }

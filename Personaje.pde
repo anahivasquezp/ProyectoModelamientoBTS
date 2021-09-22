@@ -84,7 +84,9 @@ public abstract class Personaje implements Elemento {
           }
         } else if (s.esMortal()) {
           vida=2;
-        } else if (s instanceof Portal) {
+        }else if (s instanceof Malo && this.estado == 0) { // verifica si es que se colisiona con el malo y esta en estado activo
+          vida=2;
+        }else if (s instanceof Portal) {
           vida=1;
         }
       }
