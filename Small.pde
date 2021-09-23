@@ -12,10 +12,10 @@ public class Small extends Personaje {
     public void mover() {
     if (this.estado==0) {
       if (keyCode==RIGHT) {
-        cambioX=9;
+        cambioX=7;
       }
       if (keyCode==LEFT) {
-        cambioX=-9;
+        cambioX=-7;
       }
     }
   }

@@ -85,6 +85,12 @@ public class Malo extends Personaje{
           } else if (cambioX<0) {
             this.posX = ((Pared)s).posX+54;
             this.cambioX=0;
+          }else {
+            if (this.posX < ((Pared)s).posX) {
+              this.posX = ((Pared)s).posX - 54;
+            } else if (this.posX > ((Pared)s).posX) {
+              this.posX = ((Pared)s).posX + 54;
+            }
           }
         } else if (s instanceof Caja && ((Caja)s).posY == this.posY) {
           if (cambioX>0) {

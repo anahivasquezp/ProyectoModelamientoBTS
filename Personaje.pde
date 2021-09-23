@@ -97,44 +97,62 @@ public abstract class Personaje implements Elemento {
       for (Elemento s : colisiones) {
         if (s instanceof Pared && ((Pared)s).posY == this.posY) {
           if (cambioX>0) {
-            this.posX = ((Pared)s).posX-52;
+            this.posX = ((Pared)s).posX-54;
             this.cambioX = 0;
           } else if (cambioX<0) {
-            this.posX = ((Pared)s).posX+52;
+            this.posX = ((Pared)s).posX+54;
             this.cambioX=0;
+          }else {
+            if (this.posX < ((Pared)s).posX) {
+              this.posX = ((Pared)s).posX - 54;
+            } else if (this.posX > ((Pared)s).posX) {
+              this.posX = ((Pared)s).posX + 54;
+            }
           }
         } else if (s instanceof Caja && ((Caja)s).posY == this.posY) {
           if (cambioX>0) {
-            this.posX = ((Caja)s).posX-52;
+            this.posX = ((Caja)s).posX-54;
             this.cambioX = 0;
           } else if (cambioX<0) {
             this.cambioX=0;
-            this.posX = ((Caja)s).posX+52;
+            this.posX = ((Caja)s).posX+54;
           } else {
             if (this.posX < ((Caja)s).posX) {
-              this.posX = ((Caja)s).posX - 52;
+              this.posX = ((Caja)s).posX - 54;
             } else if (this.posX > ((Caja)s).posX) {
-              this.posX = ((Caja)s).posX + 52;
+              this.posX = ((Caja)s).posX + 54;
             }
           }
         }
         
         if (s instanceof Puerta) {
           if (cambioX>0) {
-            this.posX = ((Puerta)s).posX-52;
+            this.posX = ((Puerta)s).posX-54;
             this.cambioX = 0;
           } else if (cambioX<0) {
-            this.posX = ((Puerta)s).posX+52;
+            this.posX = ((Puerta)s).posX+54;
             this.cambioX=0;
+          }else {
+            if (this.posX < ((Puerta)s).posX) {
+              this.posX = ((Puerta)s).posX - 54;
+            } else if (this.posX > ((Puerta)s).posX) {
+              this.posX = ((Puerta)s).posX + 54;
+            }
           }
         }
         if (s instanceof BarreraColor) {
           if (cambioX>0) {
-            this.posX = ((BarreraColor)s).posX-52;
+            this.posX = ((BarreraColor)s).posX-54;
             this.cambioX = 0;
           } else if (cambioX<0) {
-            this.posX = ((BarreraColor)s).posX+52;
+            this.posX = ((BarreraColor)s).posX+54;
             this.cambioX=0;
+          }else {
+            if (this.posX < ((BarreraColor)s).posX) {
+              this.posX = ((BarreraColor)s).posX - 54;
+            } else if (this.posX > ((BarreraColor)s).posX) {
+              this.posX = ((BarreraColor)s).posX + 54;
+            }
           }
         }
       }

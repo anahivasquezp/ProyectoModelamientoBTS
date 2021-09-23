@@ -53,7 +53,7 @@ public class Registro {
       try {
         FileWriter f2 = new FileWriter(dataPath("Usuarios.txt"), true);
         PrintWriter pw = new PrintWriter(f2);
-        pw.println(this.usuario+","+this.password+ ",1");
+        pw.println(this.usuario+","+this.password+ ",0");
         pw.close();
       }
       catch (Exception e) {

@@ -12,10 +12,10 @@ public class Tall extends Personaje {
     public void mover() {
     if (this.estado==0) {
       if (keyCode==RIGHT) {
-        cambioX=6;
+        cambioX=5;
       }
       if (keyCode==LEFT) {
-        cambioX=-6;
+        cambioX=-5;
       }
     }
   }
